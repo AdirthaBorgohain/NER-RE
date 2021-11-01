@@ -11,6 +11,8 @@ At its core, the relation extraction model is a classifier that predicts a relat
 
 Sample annotated data for training can be found inside the assets directory of both the model folders. This repository contains code for training NER and RE models and then using them together using the PipelineModel class from ``PipelineModel.py`` python script. Codebase for both the models follow spaCy's recommended file structuring.
 
+### Screenshot:
+![example](example.png)
 
 ### Important Commands:
 

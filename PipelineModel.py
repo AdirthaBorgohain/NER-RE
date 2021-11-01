@@ -27,8 +27,8 @@ class PipelineModel:
 
     def get_predictions(self, text: str, threshold: float = 0.4):
         doc = self.__ner(text, disable=['tagger'])
-        # print(f"spans: {[(e.start, e.text, e.label_) for e in doc.ents]}")
-        print(f"Extracted Entities: {[(e.text, e.label_) for e in doc.ents]}")
+        print(f"Text: {text}\n")
+        print(f"Extracted Entities: {[(e.text, e.label_) for e in doc.ents]}\n")
         for name, proc in self.__re.pipeline:
             doc = proc(doc)
 
@@ -46,6 +46,6 @@ class PipelineModel:
 
 if __name__ == "__main__":
     pipeline = PipelineModel()
-    sample_text = """The up-regulation of Id1 mRNA was characteristic of an early inducible gene, with 
-    maximal upregulation two hours after the addition of BMP-6 and returned to baseline after 24 hours."""
+    sample_text = "The up-regulation of Id1 mRNA was characteristic of an early inducible gene, with " \
+        "maximal upregulation two hours after the addition of BMP-6 and returned to baseline after 24 hours."
     pipeline.get_predictions(text=sample_text)
