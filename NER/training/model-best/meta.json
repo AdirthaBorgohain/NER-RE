@@ -20,11 +20,7 @@
 
     ],
     "ner":[
-      "ANATOMY",
-      "DISEASE_OR_SYMPTOM",
-      "DRUG",
-      "GENE_OR_GENE_PRODUCT",
-      "NEUROMOD"
+      "GGP"
     ]
   },
   "pipeline":[
@@ -39,37 +35,17 @@
 
   ],
   "performance":{
-    "ents_f":0.9983464241,
-    "ents_p":0.9983464241,
-    "ents_r":0.9983464241,
+    "ents_f":1.0,
+    "ents_p":1.0,
+    "ents_r":1.0,
     "ents_per_type":{
-      "ANATOMY":{
-        "p":0.9977578475,
-        "r":1.0,
-        "f":0.9988776655
-      },
-      "GENE_OR_GENE_PRODUCT":{
-        "p":0.9973707274,
-        "r":0.996497373,
-        "f":0.996933859
-      },
-      "DRUG":{
-        "p":1.0,
-        "r":1.0,
-        "f":1.0
-      },
-      "DISEASE_OR_SYMPTOM":{
-        "p":1.0,
-        "r":1.0,
-        "f":1.0
-      },
-      "NEUROMOD":{
+      "GGP":{
         "p":1.0,
         "r":1.0,
         "f":1.0
       }
     },
-    "tok2vec_loss":603.565570947,
-    "ner_loss":363.5621230362
+    "tok2vec_loss":125.8714579117,
+    "ner_loss":21.0240405368
   }
 }
