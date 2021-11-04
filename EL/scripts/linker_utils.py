@@ -1,23 +1,24 @@
 import os
 import spacy
+from EL import configs
 from scispacy.linking import *
 from EL.scripts.create_linker import main
 from scispacy.linking_utils import KnowledgeBase
 from scispacy.candidate_generation import DEFAULT_PATHS, DEFAULT_KNOWLEDGE_BASES, LinkerPaths
 
-if not os.path.isdir('EL/indexes/'):
-    main(kb_path='EL/assets/custom_kb.jsonl', output_path='EL/indexes/')
+if not os.path.isdir(configs['index_path']):
+    main(kb_path=configs['kb_path'], output_path=configs['index_path'])
 
 linker_paths = LinkerPaths(
-    ann_index="EL/indexes/nmslib_index.bin",
-    tfidf_vectorizer="EL/indexes/tfidf_vectorizer.joblib",
-    tfidf_vectors="EL/indexes/tfidf_vectors_sparse.npz",
-    concept_aliases_list="EL/indexes/concept_aliases.json",
+    ann_index=configs['ann_index'],
+    tfidf_vectorizer=configs['tfidf_vectorizer'],
+    tfidf_vectors=configs['tfidf_vectors'],
+    concept_aliases_list=configs['concept_aliases_list'],
 )
 
 
 class CustomKnowledgeBase(KnowledgeBase):
-    def __init__(self, file_path: str = "EL/assets/custom_kb.jsonl", ):
+    def __init__(self, file_path: str = configs['kb_path'], ):
         super().__init__(file_path)
 
 

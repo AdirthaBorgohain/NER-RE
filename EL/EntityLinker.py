@@ -10,11 +10,8 @@ class EntityLinker:
 
     def get_id(self, entity) -> str:
         doc = self.__nlp(entity)
-        linker = self.__nlp.get_pipe('scispacy_linker')
-        print(linker.kb.cui_to_entity["C0000107"].aliases)
         try:
             ents = doc.ents[0]
-            print('ents: ', ents)
             possible_ents = [ent for ent in ents._.kb_ents]
             most_likely_ent = possible_ents[0]
             return most_likely_ent[0]
@@ -24,6 +21,6 @@ class EntityLinker:
 
 if __name__ == '__main__':
     linker = EntityLinker()
-    entity_name = "BMP-6"
+    entity_name = "1 Sarcosine 8 Isoleucine Angiotensin II"
     concept_id = linker.get_id(entity_name)
     print(f"\nConcept ID for {entity_name}: {concept_id}")
