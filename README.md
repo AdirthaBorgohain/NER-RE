@@ -35,3 +35,6 @@ P.S. : If using CPU, model will not use transformers and will be trained using t
 ### Note:
 
 Ensure all modules and libraries mentioned in requirements.txt are installed before running the project.
+
+#### TODO:
+Add Entity Linker Module using Approximate Nearest Neighbor (ANN)

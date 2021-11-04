@@ -1,6 +1,6 @@
 - To run the whole flow:
-	* spacy project run all_gpu (Using GPU)
-	* spacy project run all (Using CPU)
+	* `spacy project run all_gpu (Using GPU)`
+	* `spacy project run all (Using CPU)`
 
 P.S. : If using CPU, model will not use transformers and will be trained using tok2vec instead.
 
