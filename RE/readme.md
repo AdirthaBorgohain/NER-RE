@@ -1,3 +1,5 @@
+## Relation Extraction Module
+
 - To run the whole flow:
 	* `spacy project run all_gpu (Using GPU)`
 	* `spacy project run all (Using CPU)`

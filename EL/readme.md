@@ -1,3 +1,5 @@
+## Entity Linker Module
+
 - To generate all indexes and vectors from Knowledge Base JSONL file:
 	* `python scripts/create_linker.py --kb_path assets/custom_kb.jsonl --output_path indexes/`
 
