@@ -1,8 +1,8 @@
 import os
 import argparse
 
-from scispacy.linking_utils import KnowledgeBase
-from scispacy.candidate_generation import create_tfidf_ann_index
+from EL.scripts.linking_utils import KnowledgeBase
+from EL.scripts.candidate_generation import create_tfidf_ann_index
 
 
 def main(kb_path: str, output_path: str):

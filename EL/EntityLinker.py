@@ -1,6 +1,5 @@
-import os
 import spacy
-from scripts.linker_utils import attach_linker
+from scripts.linker_utils import attach_linker, get_linker
 
 
 class EntityLinker:
@@ -20,7 +19,10 @@ class EntityLinker:
 
 
 if __name__ == '__main__':
-    linker = EntityLinker()
     entity_name = "1 Sarcosine 8 Isoleucine Angiotensin II"
-    concept_id = linker.get_id(entity_name)
-    print(f"\nConcept ID for {entity_name}: {concept_id}")
+    nlp = spacy.load("en_ner_bionlp13cg_md")
+    doc = nlp(entity_name)
+    linker = get_linker()
+    linked_doc = linker(doc)
+    print('Entities: ', linked_doc.ents)
+    print('Entity Details: ', linker.kb.cui_to_entity[linked_doc.ents[0]._.kb_ents[0][0]])

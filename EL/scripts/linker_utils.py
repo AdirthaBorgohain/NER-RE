@@ -1,10 +1,10 @@
 import os
 import spacy
 from EL import configs
-from scispacy.linking import *
+from EL.scripts.linking import *
 from EL.scripts.create_linker import main
-from scispacy.linking_utils import KnowledgeBase
-from scispacy.candidate_generation import DEFAULT_PATHS, DEFAULT_KNOWLEDGE_BASES, LinkerPaths
+from EL.scripts.linking_utils import KnowledgeBase
+from EL.scripts.candidate_generation import DEFAULT_PATHS, DEFAULT_KNOWLEDGE_BASES, LinkerPaths
 
 if not os.path.isdir(configs['index_path']):
     main(kb_path=configs['kb_path'], output_path=configs['index_path'])
@@ -30,3 +30,9 @@ def attach_linker(spacy_model: spacy.language):
     spacy_model.add_pipe("scispacy_linker", config={"resolve_abbreviations": False, "linker_name": "entity_linker",
                                                     "filter_for_definitions": False, "threshold": "0.5"})
     return spacy_model
+
+
+def get_linker():
+    linker = EntityLinker(resolve_abbreviations=False, name="custom_linker", filter_for_definitions=False,
+                          threshold=0.5, linker_name="entity_linker")
+    return linker

@@ -53,6 +53,6 @@ class PipelineModel:
 
 if __name__ == "__main__":
     pipeline = PipelineModel()
-    sample_text = "The up-regulation of Id1 mRNA was characteristic of an early inducible gene, with " \
+    sample_text = "The up-regulation of RNA was characteristic of an early inducible gene, with " \
         "maximal upregulation two hours after the addition of BMP-6 and returned to baseline after 24 hours."
     pipeline.get_predictions(text=sample_text)
