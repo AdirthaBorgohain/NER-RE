@@ -30,25 +30,27 @@ class PipelineModel:
     def get_predictions(self, text: str, threshold: float = 0.4):
         doc = self.__ner(text)
         print(f"Text: {text}\n")
-        print(f"Extracted Entities: {[(e.text, e.label_) for e in doc.ents]}\n")
+        print(f"Extracted Entities -> {[(e.text, e.label_) for e in doc.ents]}\n")
         linker = self.__ner.get_pipe("scispacy_linker")
+        print(f"Linked Entities in Knowledge Base ->")
         for entity in doc.ents:
             for ent in entity._.kb_ents:
-                print(linker.kb.cui_to_entity[ent[0]])
+                print(f"Entity: {entity}, {linker.kb.cui_to_entity[ent[0]]}")
 
         for name, proc in self.__re.pipeline:
             doc = proc(doc)
 
+        print("\nExtracted Relations ->")
         for value, rel_dict in doc._.rel.items():
             for e in doc.ents:
                 for b in doc.ents:
                     if e.start == value[0] and b.start == value[1]:
                         if rel_dict['Binds'] >= threshold:
                             print(
-                                f"Entities: {e.text, b.text} --> Predicted Relation: Binds")
+                                f"{e.text, b.text} --> Predicted Relation: Binds")
                         elif rel_dict['Regulates'] >= threshold:
                             print(
-                                f"Entities: {e.text, b.text} --> Predicted Relation: Regulates")
+                                f"{e.text, b.text} --> Predicted Relation: Regulates")
 
 
 if __name__ == "__main__":
