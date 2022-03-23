@@ -17,9 +17,13 @@ class DotDict(dict):
 class PipelineModel:
     def __init__(self) -> None:
         self.__pipeline_config = self.load_yaml_file('./pipeline.yml')
-        self.__ner = spacy.load(self.__pipeline_config.vars['ner_model'])
-        self.__ner = attach_linker(spacy_model=self.__ner)
+        self.__model = spacy.load(self.__pipeline_config.vars['ner_model'])
+        self.__model = attach_linker(spacy_model=self.__model)
         self.__re = spacy.load(self.__pipeline_config.vars['re_model'])
+        self.__model.add_pipe(
+            "tok2vec", name="re_tok2vec", source=self.__re)
+        self.__model.add_pipe("relation_extractor",
+                       source=self.__re, last=True)
 
     @staticmethod
     def load_yaml_file(file_name):
@@ -28,17 +32,14 @@ class PipelineModel:
         return DotDict(doc_dict)
 
     def get_predictions(self, text: str, threshold: float = 0.4):
-        doc = self.__ner(text)
+        doc = self.__model(text)
         print(f"Text: {text}\n")
         print(f"Extracted Entities -> {[(e.text, e.label_) for e in doc.ents]}\n")
-        linker = self.__ner.get_pipe("scispacy_linker")
+        linker = self.__model.get_pipe("scispacy_linker")
         print(f"Linked Entities in Knowledge Base ->")
         for entity in doc.ents:
             for ent in entity._.kb_ents:
                 print(f"Entity: {entity}, {linker.kb.cui_to_entity[ent[0]]}")
-
-        for name, proc in self.__re.pipeline:
-            doc = proc(doc)
 
         print("\nExtracted Relations ->")
         for value, rel_dict in doc._.rel.items():
