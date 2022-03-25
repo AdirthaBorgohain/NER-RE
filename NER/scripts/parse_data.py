@@ -26,9 +26,9 @@ def main(json_loc_train: Path, json_loc_dev: Path, json_loc_test: Path, train_fi
                     if all([s.get(t) for t in ["start", "end", "label"]]):
                         span = doc.char_span(s["start"], s["end"], label=s["label"])
                         if span is None:
-                            warn = f"Skipping entity [{start}, {end}, {label}] in the following text because the " \
-                                   f"character span '{doc.text[start:end]}' does not align with token boundaries:" \
-                                   f"\n\n{repr(text)}\n"
+                            warn = f"Skipping entity [{s['start']}, {s['end']}, {s['label']}] in the following text " \
+                                   f"because the character span '{doc.text[s['start']:s['end']]}' does not align with " \
+                                   f"token boundaries: \n\n{repr(doc.text)}\n"
                             msg.warn(warn)
                         else:
                             ents.append(span)

@@ -1,28 +1,11 @@
-import yaml
 import spacy
-
-# from scripts.rel_pipe import make_relation_extractor, score_relations
-# from scripts.rel_model import create_relation_model, create_classification_layer, create_instances, create_tensors
-
-
-# helper functions and classes
-class DotDict(dict):
-    """dot.notation access to dictionary attributes"""
-    __getattr__ = dict.get
-    __setattr__ = dict.__setitem__
-    __delattr__ = dict.__delitem__
+from utils import load_yaml_file
 
 
 class EntityExtractor:
     def __init__(self):
-        self.__project_config = self.load_yaml_file('./project.yml')
+        self.__project_config = load_yaml_file('./project.yml')
         self.__ner = spacy.load(self.__project_config.vars['trained_model'])
-
-    @staticmethod
-    def load_yaml_file(file_name):
-        with open(file_name) as file:
-            doc_dict = yaml.full_load(file)
-        return DotDict(doc_dict)
 
     def get_predictions(self, text: str):
         for doc in self.__ner.pipe(text, disable=["tagger", "parser"]):
