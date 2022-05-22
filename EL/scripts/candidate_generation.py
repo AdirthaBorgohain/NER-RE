@@ -1,3 +1,4 @@
+import re
 import json
 import datetime
 from collections import defaultdict
@@ -302,6 +303,15 @@ class CandidateGenerator:
         return batch_mention_candidates
 
 
+regex_compiled = re.compile(r"\s+|'|-")
+
+
+def preprocess(word):
+    word = word.lower()
+    word = regex_compiled.sub("", word)
+    return word
+
+
 def create_tfidf_ann_index(
         out_path: str, kb: KnowledgeBase = None
 ) -> Tuple[List[str], TfidfVectorizer, FloatIndex]:
@@ -353,7 +363,7 @@ def create_tfidf_ann_index(
     print(f"Fitting tfidf vectorizer on {len(concept_aliases)} aliases")
 
     tfidf_vectorizer = TfidfVectorizer(
-        analyzer="char_wb", ngram_range=(3, 3), min_df=10, dtype=numpy.float32
+        analyzer="char_wb", ngram_range=(3, 3), min_df=10, dtype=numpy.float32, preprocessor=preprocess
     )
 
     # tfidf_vectorizer = TfidfVectorizer(
